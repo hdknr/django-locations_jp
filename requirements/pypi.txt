@@ -1,0 +1,18 @@
+# Django
+django
+
+# REST
+requests
+
+# Model
+django-mptt
+django-ordered-model
+
+# Tools
+ipython
+django-click
+beautifulsoup4
+
+# Data
+pyexcel-xlsx
+
