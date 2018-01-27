@@ -54,11 +54,33 @@ class CityAdmin(admin.ModelAdmin):
 @admin.register(models.JpAddress)
 class JpAddressAdmin(admin.ModelAdmin):
     list_display = ['id', 'jiscode', 'zipcode',
-                    'pref_name', 'city_name', 'town_name']
+                    'pref_name', 'city_name', 'town_name', 'md5']
     raw_id_fields = ['city']
+    readonly_fields = ['md5']
     list_filter = [
         'pref_name',
         'is_split', 'is_small', 'is_towncode',
         'is_multi', 'is_changed', 'reason', ]
     search_fields = ['pref_name', 'city_name', 'town_name',
                      'pref_kana', 'city_kana', 'town_kana', ]
+
+
+@admin.register(models.JpAddressImport)
+class JpAddressImportAdmin(admin.ModelAdmin):
+    list_display = ['id', 'jiscode', 'zipcode',
+                    'pref_name', 'city_name', 'town_name', 'md5']
+    readonly_fields = ['md5']
+    list_filter = [
+        'pref_name',
+        'is_split', 'is_small', 'is_towncode',
+        'is_multi', 'is_changed', 'reason', ]
+    search_fields = ['pref_name', 'city_name', 'town_name',
+                     'pref_kana', 'city_kana', 'town_kana', ]
+
+
+@admin.register(models.CityImport)
+class CityImportAdmin(admin.ModelAdmin):
+    list_display = ['id', 'jiscode', 'prefecture', 'name', 'kana']
+    raw_id_fields = ['prefecture']
+    list_filter = ['prefecture']
+    search_fields = ['name', 'kana', 'prefecture__name', 'prefecture__kana']

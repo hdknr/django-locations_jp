@@ -49,3 +49,12 @@ class JpAddress(defs.JpAddress):
 
     def __str__(self):
         return ' '.join([self.zipcode, str(self.city)])
+
+
+class CityImport(defs.City):
+    prefecture = models.ForeignKey(
+        Prefecture, on_delete=models.CASCADE)
+
+
+class JpAddressImport(defs.JpAddress):
+    pass

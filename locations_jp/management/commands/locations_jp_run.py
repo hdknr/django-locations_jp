@@ -1,13 +1,11 @@
 from pyexcel_xlsx import get_data as excel_get_data
 import djclick as click
 from django.utils import translation
-from locations_jp import models, defs
+from locations_jp import models, defs, batch, conf, utils
 from logging import getLogger
 from bs4 import BeautifulSoup as Soup
 from urllib.parse import urljoin
-import zipfile
 import requests
-import io
 import json
 import csv
 import unicodedata
@@ -74,18 +72,6 @@ def jp_urls(ctx):
                 jpaddress_url=urljoin(url, path))
 
 
-JP_KEN_ALL = 'http://www.post.japanpost.jp/zipcode/dl/kogaki/zip/ken_all.zip'
-
-def open_zipfile(url):
-    response = requests.get(url)
-    with zipfile.ZipFile(io.BytesIO(response.content)) as thezip:
-        for zipinfo in thezip.infolist():
-            with thezip.open(zipinfo) as thefile:
-                thefile = io.TextIOWrapper(
-                    io.BytesIO(thefile.read()), encoding='cp932')
-                yield zipinfo.filename, thefile
-
-
 def get_or_create_city(jiscode, pref_name, city_name, city_kana):
     prefecture = models.Prefecture.objects.filter(name=pref_name).first()
     if not prefecture:
@@ -96,7 +82,7 @@ def get_or_create_city(jiscode, pref_name, city_name, city_kana):
 
 
 def load_jpaddress_csv(file):
-    names = [f.name for f in defs.JpAddress._meta.fields]
+    names = [f.name for f in defs.JpAddressCsv._meta.fields]
     for row in csv.reader(file):
         for i in [3, 4, 5]:
             row[i] = unicodedata.normalize('NFKC', row[i])
@@ -114,7 +100,7 @@ def load_jpaddress_csv(file):
 
 
 @main.command()
-@click.option('--url', default=JP_KEN_ALL)
+@click.option('--url', default=conf.JP_KEN_ALL)
 @click.option('--pref')
 @click.pass_context
 def load_jpaddress(ctx, url, pref):
@@ -126,6 +112,6 @@ def load_jpaddress(ctx, url, pref):
     if prefecture:
         url = prefecture.jpaddress_url or url
 
-    for name, file in open_zipfile(url):
+    for name, file in utils.open_zipfile(url):
         if name.endswith('.CSV'):
             load_jpaddress_csv(file)

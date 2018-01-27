@@ -23,7 +23,8 @@ class Prefecture(models.Model):
 
 
 class City(models.Model):
-    jiscode = models.CharField(_('JIS X0401/X0402'), max_length=10)
+    jiscode = models.CharField(
+        _('JIS X0401/X0402'), max_length=10, unique=True, db_index=True)
     name = models.CharField(max_length=150)
     kana = models.CharField(max_length=100)
 
@@ -31,7 +32,7 @@ class City(models.Model):
         abstract = True
 
 
-class JpAddress(models.Model):
+class JpAddressCsv(models.Model):
     jiscode = models.CharField(_('JIS X0401/X0402'), max_length=10)
     zipcode5 = models.CharField(max_length=5)
     zipcode = models.CharField(max_length=7)
@@ -55,6 +56,13 @@ class JpAddress(models.Model):
         2: residential, 3: land readjustment,
         4: postal, 5: correction, 7: discontinued
     '''
+
+    class Meta:
+        abstract = True
+
+
+class JpAddress(JpAddressCsv):
+    md5 = models.CharField(max_length=32, unique=True, db_index=True)
 
     class Meta:
         abstract = True
