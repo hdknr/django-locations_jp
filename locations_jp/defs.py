@@ -35,7 +35,7 @@ class City(models.Model):
 class JpAddressCsv(models.Model):
     jiscode = models.CharField(_('JIS X0401/X0402'), max_length=10)
     zipcode5 = models.CharField(max_length=5)
-    zipcode = models.CharField(max_length=7)
+    zipcode = models.CharField(max_length=7, db_index=True)
 
     pref_kana = models.CharField(max_length=50)
     city_kana = models.CharField(max_length=100)
