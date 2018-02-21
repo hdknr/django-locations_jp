@@ -18,14 +18,9 @@ $ python manage.py locations_jp_run jp_urls
 
 ## Load JP Address Data
 
-All(KEN_ALL):
+MySQL and All(KEN_ALL):
 
 ~~~bash
-$ python manage.py locations_jp_run load_jpaddress
-~~~
-
-Specific prefecture:
-
-~~~bash
-$ python manage.py locations_jp_run load_jpaddress --pref 沖縄県
+$ python manage.py locations_jp_mysql import_jpaddress
+$ python manage.py locations_jp_mysql process_jpaddress
 ~~~

@@ -31,8 +31,8 @@ def mysql_jpaddress_import(file, out=None, dry=False):
     if not dry:
         out.seek(0)
         sql = out.read()
-        open("/tmp/hoge.sql", "w").write(sql)
         utils.call_sql(sql)
+        
     out.close()
 
 
