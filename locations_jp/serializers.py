@@ -8,3 +8,10 @@ class JpAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.JpAddress
         fields = '__all__'
+
+
+class PrefectureSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Prefecture
+        fields = '__all__'

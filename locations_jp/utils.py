@@ -1,5 +1,8 @@
 from django.db import models, connection
 from django.template import Template, Context, loader
+from django.utils.safestring import mark_safe as _S
+from rest_framework.renderers import JSONRenderer
+
 try:
     from django.urls import reverse
 except:
@@ -45,3 +48,6 @@ def open_zipfile(url):
                 thefile = io.TextIOWrapper(
                     io.BytesIO(thefile.read()), encoding='cp932')
                 yield zipinfo.filename, thefile
+
+def to_json(data):
+    return _S(JSONRenderer().render(data).decode('utf-8'))
