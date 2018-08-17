@@ -31,3 +31,8 @@ class PrefectureViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.PrefectureSerializer
     filter_class = filters.PrefectureFilter
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
+
+    @decorators.action(methods=['get'], detail=False)
+    def names(self, request):
+        items = models.Prefecture.objects.values_list('name', flat=True)
+        return response.Response(items) 
