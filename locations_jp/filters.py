@@ -13,3 +13,10 @@ class JpAddressFilter(django_filters.FilterSet):
     class Meta:
         model = models.JpAddress
         exclude = []
+
+
+class PrefectureFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = models.Prefecture
+        exclude = []

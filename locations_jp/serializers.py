@@ -14,4 +14,4 @@ class PrefectureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Prefecture
-        fields = '__all__'
+        fields = ['id', 'code', 'slug', 'name', 'kana', 'region', 'neighbors']

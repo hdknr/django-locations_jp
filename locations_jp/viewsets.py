@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from rest_framework import (viewsets, permissions, pagination, response)
+from rest_framework import (viewsets, permissions, pagination, response, decorators)
 from . import models, serializers, filters
 
 
@@ -23,4 +23,11 @@ class JpAddressViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.JpAddressSerializer
     filter_class = filters.JpAddressFilter
     pagination_class = Pagination
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
+
+
+class PrefectureViewSet(viewsets.ModelViewSet):
+    queryset = models.Prefecture.objects.all()
+    serializer_class = serializers.PrefectureSerializer
+    filter_class = filters.PrefectureFilter
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
