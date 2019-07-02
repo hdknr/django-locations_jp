@@ -1,4 +1,4 @@
-## django-locations_jp
+# django-locations_jp(proto)
 
 - Prefectures
 - City
