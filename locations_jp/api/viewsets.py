@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from rest_framework import (viewsets, permissions, pagination, response, decorators)
-from . import models, serializers, filters
+from .. import models 
+from . import serializers, filters
 
 
 class Pagination(pagination.PageNumberPagination):

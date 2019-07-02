@@ -40,6 +40,7 @@ def call_sql(sql):
     cursor.close()
     return res
 
+
 def open_zipfile(url):
     response = requests.get(url)
     with zipfile.ZipFile(io.BytesIO(response.content)) as thezip:

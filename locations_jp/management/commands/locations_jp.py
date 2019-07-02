@@ -1,7 +1,7 @@
 from pyexcel_xlsx import get_data as excel_get_data
 import djclick as click
 from django.utils import translation
-from locations_jp import models, defs, batch, conf, utils
+from locations_jp import models, conf, utils
 from logging import getLogger
 from bs4 import BeautifulSoup as Soup
 from urllib.parse import urljoin

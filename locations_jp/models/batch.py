@@ -2,7 +2,8 @@ from tempfile import TemporaryFile
 from hashlib import md5
 import csv
 import unicodedata
-from . import utils, models, defs
+from .. import models, utils
+from . import defs
 
 
 def mysql_jpaddress_import(file, out=None, dry=False):
